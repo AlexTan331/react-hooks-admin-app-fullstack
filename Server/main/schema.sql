@@ -37,3 +37,10 @@ CREATE TABLE messages (
   message_body VARCHAR,
   date_created TIMESTAMP
 );
+
+CREATE TABLE appointments (
+  aid SERIAL PRIMARY KEY,
+  title VARCHAR(10),
+  start_time TIMESTAMP WITH TIME ZONE UNIQUE,
+  end_time TIMESTAMP WITH TIME ZONE UNIQUE
+);
