@@ -21,22 +21,22 @@ import '../styles/pagination.css';
 
 
 const Posts = (props) => {
-const context = useContext(Context)
+  const context = useContext(Context)
 
 
-const [stateLocal, setState] = useState({ posts: [],
-                                          fetched: false,
-                                          first_page_load: false,
-                                          pages_slice: [1, 2, 3, 4, 5],
-                                          max_page: null,
-                                          items_per_page: 3,
+  const [stateLocal, setState] = useState({ posts: [],
+                                            fetched: false,
+                                            first_page_load: false,
+                                            pages_slice: [1, 2, 3, 4, 5],
+                                            max_page: null,
+                                            items_per_page: 3,
 
-                                          currentPage: 1,
-                                          num_posts: null,
-                                          posts_slice: null,
-                                          posts_search: [],
-                                          posts_per_page: 3
-                                      })
+                                            currentPage: 1,
+                                            num_posts: null,
+                                            posts_slice: null,
+                                            posts_search: [],
+                                            posts_per_page: 3
+                                        })
 
 
   useEffect(() => {
@@ -94,7 +94,6 @@ const handleSearch = (event) => {
    }
 
    const deletePost = (pid) => {
-     console.log('ff')
      const post_id = pid
      axios.delete('api/delete/postcomments', { data: { post_id: post_id }})
      .then(() => axios.delete('api/delete/post', { data: { post_id: post_id }})
@@ -216,18 +215,11 @@ return(
     <div>
     <div style={{opacity: stateLocal.opacity, transition: 'opacity 2s ease'}}>
     <br />
-    { context.authState
-      ?  <Link to="/addpost">
+        <Link to="/addpost">
             <Button variant="contained" color="primary">
               Add Post
             </Button>
           </Link>
-      : <Link to="/signup">
-            <Button variant="contained" color="primary">
-              Sign Up to Add Post
-            </Button>
-          </Link>
-        }
     </div>
     <br />
     <TextField

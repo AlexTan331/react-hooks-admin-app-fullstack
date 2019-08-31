@@ -110,7 +110,10 @@ const ShowPost = (props) => {
        var newArr = [...stateLocal.comments_arr ]
        newArr[commentIndex] = comment
 
-       setTimeout(() => setState({...stateLocal, comments_arr: [...newArr], edit_comment_id: 0 }), 100)
+       setTimeout(() => setState({...stateLocal,
+                                  comments_arr: [...newArr],
+                                  edit_comment_id: 0 }),
+                              100)
      };
 
 
@@ -143,7 +146,7 @@ const ShowPost = (props) => {
                      Edit
                    </Button>
                 </div>
-            :   <form onSubmit={(event, cid) => handleUpdate(event, props.comment.cid) }>
+            :   <form onSubmit={(event, cid) => handleUpdate(event, props.comment.cid, props.comment) }>
                   <input
                     autoFocus={true}
                     name="edit_comment"
@@ -214,15 +217,14 @@ const ShowPost = (props) => {
       handleCommentSubmit(submitted_comment)
     }
 
-    const handleUpdate = (event, cid) => {
+    const handleUpdate = (event, cid, commentprops) => {
       event.preventDefault()
-      console.log(event)
-      console.log(cid)
+      console.log(commentprops)
       const comment = event.target.editted_comment.value
       const comment_id = cid
       const post_id = stateLocal.post_id
-      const user_id = context.dbProfileState[0].uid
-      const username = context.dbProfileState[0].username
+      const user_id = commentprops.userid
+      const username = commentprops.author
       const isEdited = true
       const current_time = "Just Now"
 
@@ -274,7 +276,7 @@ const ShowPost = (props) => {
         <div>
           <div>
             <h2>Post</h2>
-            {stateLocal.comments_arr || props.location.state 
+            {stateLocal.comments_arr || props.location.state
               ? <div>
                   <p>{stateLocal.post_title}</p>
                   <p>{stateLocal.post_body}</p>
@@ -316,19 +318,9 @@ const ShowPost = (props) => {
                 margin="normal"
               />
               <br />
-              <div>
-                {console.log('hhhhh')}
-              </div>
-              {context.authState
-                ? <Button variant="contained" color="primary" type="submit">
+                  <Button variant="contained" color="primary" type="submit">
                     Submit
                   </Button>
-                : <Link to="/signup">
-                     <Button  variant="contained" color="primary">
-                         Signup to Comment
-                      </Button>
-                   </Link>
-               }
             </form>
           </div>
           <div>
